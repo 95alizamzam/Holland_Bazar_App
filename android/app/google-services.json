@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "908973422755",
+    "project_id": "tsctestproject-43097",
+    "storage_bucket": "tsctestproject-43097.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908973422755:android:8e2b2fd035ba0238b02716",
+        "android_client_info": {
+          "package_name": "com.tsc.tsc_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkoSjXWJzYWIlsaduZzmncNjfH6L94iFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

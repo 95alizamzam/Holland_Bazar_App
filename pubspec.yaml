@@ -1,0 +1,75 @@
+name: tsc_app
+description: A new Flutter project.
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.1.5 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  flutter_svg: ^2.0.9
+  smooth_page_indicator: ^1.1.0
+  flutter_screenutil: ^5.9.0
+  pinput: ^3.0.1
+  firebase_auth: ^4.14.0
+  firebase_core: ^2.22.0
+  bloc: ^8.1.2
+  flutter_bloc: ^8.1.3
+  # service_locator
+  get_it: ^7.6.4
+  # used for serialzation
+  json_annotation: ^4.8.1
+  # used with getIt
+  injectable: ^1.5.4
+  dartz: ^0.10.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  cloud_firestore: ^4.13.1
+  firebase_storage: ^11.5.1
+  cached_network_image: ^3.3.0
+  dotted_line: ^3.2.2
+  badges: ^3.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  json_serializable: ^6.7.1
+  injectable_generator:
+  build_runner:
+
+flutter:
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/logo/
+    - assets/on_boarding_page/
+    - assets/login/
+    - assets/home_page/
+    - assets/cart_page/
+
+  fonts:
+    - family: metropolis_extra_bold
+      fonts:
+        - asset: assets/fonts/metropolis.extra-bold.otf
+    - family: metropolis_medium
+      fonts:
+        - asset: assets/fonts/metropolis.medium.otf
+    - family: metropolis_semi_bold
+      fonts:
+        - asset: assets/fonts/metropolis.semi-bold.otf
+    - family: metropolis.regular
+      fonts:
+        - asset: assets/fonts/metropolis.regular.otf
+
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
