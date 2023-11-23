@@ -21,8 +21,6 @@ class HiveConfig {
 class HiveKeys {
   static String isFirstRun = "isFirstRun";
   static String authVerificationId = "verificationId";
-  static String authSmsCode = "authSmsCode";
-  static String authErrorMessage = "authErrorMessage";
 
   static String userId = "userId";
   static String userPhoneNumber = "userPhoneNumber";

@@ -21,10 +21,9 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvents, VerifyOtpStates> {
       final response = await verifyOtpUseCase(event.otp);
       response.fold(
         (l) => emit(VerifyFailed(exception: l)),
-        (user) async {
+        (user) {
           if (user != null) {
-            await saveUserData(user);
-            emit(VerifyDone());
+            add(UpdateUi(user: user));
           } else {
             emit(
               VerifyFailed(
@@ -34,6 +33,11 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvents, VerifyOtpStates> {
           }
         },
       );
+    });
+
+    on<UpdateUi>((event, emit) async {
+      await saveUserData(event.user);
+      emit(VerifyDone());
     });
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:tsc_app/core/common_widgets/cached_image.dart';
 
 import 'package:tsc_app/core/di/setup.dart';
@@ -45,43 +46,44 @@ class _ProductCardState extends State<ProductCard> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (url != null)
-            Padding(
-              padding: const EdgeInsets.all(4),
-              child: Stack(
-                children: [
-                  Container(
-                    width: double.maxFinite,
-                    height: 147.h,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF8EBE8),
-                      borderRadius: BorderRadius.circular(14.r),
-                    ),
-                    child: CustomCachedImage(url: url!),
-                  ),
-                  Positioned(
-                    top: 6.h,
-                    right: 2.w,
-                    child: InkWell(
-                      onTap: widget.onAddPress,
-                      child: Container(
-                        width: 24.w,
-                        height: 24.h,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
+          url == null
+              ? productCardLoader()
+              : Padding(
+                  padding: const EdgeInsets.all(4),
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: double.maxFinite,
+                        height: 147.h,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF8EBE8),
+                          borderRadius: BorderRadius.circular(14.r),
                         ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Color(0xFFFB7552),
-                          size: 18,
+                        child: CustomCachedImage(url: url!),
+                      ),
+                      Positioned(
+                        top: 6.h,
+                        right: 2.w,
+                        child: InkWell(
+                          onTap: widget.onAddPress,
+                          child: Container(
+                            width: 24.w,
+                            height: 24.h,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.add,
+                              color: Color(0xFFFB7552),
+                              size: 18,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Column(
@@ -146,6 +148,28 @@ class _ProductCardState extends State<ProductCard> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget productCardLoader() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade200,
+      highlightColor: Colors.white.withOpacity(.4),
+      enabled: true,
+      direction: ShimmerDirection.ltr,
+      period: const Duration(seconds: 1),
+      child: SizedBox(
+        width: double.maxFinite,
+        height: 147.h,
+        child: Container(
+          width: double.maxFinite,
+          height: 147.h,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(8.r),
+          ),
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:tsc_app/core/common_widgets/cached_image.dart';
 import 'package:tsc_app/core/di/setup.dart';
 import 'package:tsc_app/core/services/firebase/storage_service.dart';
@@ -23,9 +24,7 @@ class _CategoryCardState extends State<CategoryCard> {
     getIt<FireBaseStorageService>()
         .getDownloadUrl("categories/${widget.category.imageUrl}")
         .then((value) {
-      setState(() {
-        image = value;
-      });
+      setState(() => image = value);
     });
   }
 
@@ -43,7 +42,7 @@ class _CategoryCardState extends State<CategoryCard> {
             borderRadius: BorderRadius.circular(8.r),
           ),
           child: image == null
-              ? const SizedBox.shrink()
+              ? categoryCardLoader()
               : ClipRRect(
                   borderRadius: BorderRadius.circular(8.r),
                   child: CustomCachedImage(
@@ -61,6 +60,28 @@ class _CategoryCardState extends State<CategoryCard> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget categoryCardLoader() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade200,
+      highlightColor: Colors.white.withOpacity(.4),
+      enabled: true,
+      direction: ShimmerDirection.ltr,
+      period: const Duration(seconds: 1),
+      child: SizedBox(
+        width: 75.w,
+        height: 75.h,
+        child: Container(
+          width: 75.w,
+          height: 75.h,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(8.r),
+          ),
+        ),
+      ),
     );
   }
 }

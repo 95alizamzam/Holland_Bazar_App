@@ -15,7 +15,7 @@ import 'package:tsc_app/features/auth/presentation/blocs/login_bloc/login_bloc.d
 import 'package:tsc_app/features/auth/presentation/blocs/login_bloc/login_event.dart';
 import 'package:tsc_app/features/auth/presentation/pages/sign_up_page.dart';
 
-import '../../../../core/common_widgets/error_dialog.dart';
+import '../../../../core/common_widgets/dialogs.dart';
 import '../blocs/login_bloc/login_state.dart';
 
 class LoginPage extends StatelessWidget {
@@ -75,7 +75,11 @@ class LoginPage extends StatelessWidget {
                         validator: (phoneNumber) {
                           if (phoneNumber == null || phoneNumber.isEmpty) {
                             return "phone Number is required";
+                          } else if (phoneNumber.characters.first != "0" ||
+                              phoneNumber.trim().length != 11) {
+                            return "phone Number Format is Wrong";
                           }
+
                           return null;
                         },
                       ),
@@ -100,9 +104,10 @@ class LoginPage extends StatelessWidget {
                   bloc: loginBloc,
                   listener: (context, state) {
                     if (state is LoginFailed) {
-                      DialogHandler.showErrorDialog(
-                        context,
-                        errorMsg: state.exception.message,
+                      DialogHandler.show(
+                        context: context,
+                        state: DialogState.error,
+                        msg: state.exception.message,
                       );
                     }
                     if (state is LoginDone) {
@@ -134,7 +139,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 SizedBox(height: 17.h),
                 CustomBtnWithIcon(
-                  onPress: login,
+                  onPress: () {},
                   text: "Login with Google",
                   style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
                         backgroundColor: const MaterialStatePropertyAll(

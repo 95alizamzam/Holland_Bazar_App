@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tsc_app/core/exceptions/app_exception.dart';
 
@@ -24,6 +25,10 @@ class LoginBloc extends Bloc<LoginEvents, LoginStates> {
               if (error == null) {
                 add(UpdateUiSuccess());
               } else {
+                debugPrint("-----------------------------\n");
+                debugPrint("The Error Message ---> $error");
+                debugPrint("-----------------------------\n");
+
                 add(UpdateUiFailed(exception: CustomException(message: error)));
               }
             },

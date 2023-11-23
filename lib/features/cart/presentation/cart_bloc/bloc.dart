@@ -22,7 +22,7 @@ class CartBloc extends Bloc<CartBlocEvents, CartBlocStates> {
   final ChangeItemQuantityUseCase changeItemQuantityUseCase;
   final RemoveItemFromCartUseCase removeItemFromCartUseCase;
 
-  List<CartItem> items = [];
+  List<CartItem>? items;
   bool isCartExist = false;
   final userId = getIt<HiveConfig>().getData(key: HiveKeys.userId);
   CartBloc({
@@ -32,7 +32,7 @@ class CartBloc extends Bloc<CartBlocEvents, CartBlocStates> {
     required this.addItemToCartUseCase,
     required this.changeItemQuantityUseCase,
     required this.removeItemFromCartUseCase,
-  }) : super(InitialState()) {
+  }) : super(LoadingState()) {
     on<CheckExistCartEvent>((event, emit) async {
       emit(LoadingState());
       final response = await checkExsistCartUseCase(userId);
@@ -60,7 +60,8 @@ class CartBloc extends Bloc<CartBlocEvents, CartBlocStates> {
         },
         (r) {
           isCartExist = true;
-          add(GetCartItemsEvent(userId: userId));
+          items = [];
+          emit(DoneState());
         },
       );
     });
@@ -70,10 +71,11 @@ class CartBloc extends Bloc<CartBlocEvents, CartBlocStates> {
       final respnse = await getUserCartItemsUseCase(userId);
       respnse.fold(
         (l) {
-          items.clear();
+          items?.clear();
           emit(FailedState(exception: l));
         },
         (r) {
+          items = [];
           items = r;
           emit(GetCartItemsDoneState());
         },
@@ -104,9 +106,7 @@ class CartBloc extends Bloc<CartBlocEvents, CartBlocStates> {
       final response = await changeItemQuantityUseCase(params);
 
       response.fold(
-        (l) {
-          emit(FailedState(exception: l));
-        },
+        (l) => emit(FailedState(exception: l)),
         (r) => emit(DoneState()),
       );
     });
@@ -118,11 +118,9 @@ class CartBloc extends Bloc<CartBlocEvents, CartBlocStates> {
       );
       final response = await removeItemFromCartUseCase(params);
       response.fold(
-        (l) {
-          emit(FailedState(exception: l));
-        },
+        (l) => emit(FailedState(exception: l)),
         (r) {
-          items.removeWhere((element) => element.id == event.itemId);
+          items!.removeWhere((element) => element.id == event.itemId);
           emit(DoneState());
         },
       );

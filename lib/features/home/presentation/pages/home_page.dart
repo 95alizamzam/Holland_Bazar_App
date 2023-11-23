@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tsc_app/core/common_widgets/error_dialog.dart';
+import 'package:tsc_app/core/common_widgets/dialogs.dart';
 import 'package:tsc_app/core/di/setup.dart';
 import 'package:tsc_app/core/fonts/font.dart';
 import 'package:tsc_app/core/services/navigation_services.dart';
@@ -71,11 +71,30 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color(0xFFFBFAFC),
       body: BlocListener<CartBloc, CartBlocStates>(
-        listener: (context, state) {
+        listener: (ctx, state) {
           if (state is AddItemToCartDoneState) {
-            DialogHandler.showSuccessDialog(
-              context,
-              message: "Your Item has been added to Cart Successfully",
+            Navigator.of(context).pop();
+
+            DialogHandler.show(
+              context: context,
+              state: DialogState.success,
+              msg: "Your Item has been added to Cart Successfully",
+            );
+          }
+          if (state is FailedState) {
+            Navigator.of(context).pop();
+
+            DialogHandler.show(
+              context: context,
+              state: DialogState.error,
+              msg: state.exception.message,
+            );
+          }
+
+          if (state is AddItemToCartLoadingState) {
+            DialogHandler.show(
+              context: context,
+              state: DialogState.loading,
             );
           }
         },
@@ -109,7 +128,10 @@ class _HomePageState extends State<HomePage> {
                             SizedBox(width: 7.w),
                             GestureDetector(
                               onTap: () {
-                                router.goTo(page: const CartPage());
+                                router.goTo(
+                                  useAnimation: true,
+                                  page: const CartPage(),
+                                );
                               },
                               child: Container(
                                 width: 51.w,

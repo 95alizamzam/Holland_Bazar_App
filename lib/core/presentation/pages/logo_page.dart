@@ -31,7 +31,7 @@ class _LogoPageState extends State<LogoPage> {
         () => route.goTo(page: const OnBoardingPage()),
       );
     } else {
-      authService.auth.authStateChanges().listen((user) {
+      authService.auth.idTokenChanges().listen((user) {
         if (user == null) {
           route.goTo(page: LoginPage());
         } else {

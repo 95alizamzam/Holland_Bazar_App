@@ -20,15 +20,16 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   Future<StreamController<String?>> signInWithPhoneNumber({
     required String phoneNumber,
   }) async {
-    StreamController<String?> sc = StreamController<String?>();
-
+    final StreamController<String?> sc = StreamController<String?>();
     await authService.signInWithPhoneNumber(
       phoneNumber: phoneNumber,
-      onVerificationCompleted: () => sc.sink.add(null),
+      onCodeSent: () {
+        // triggered when firebase send code with sms to user device
+        sc.add(null);
+      },
       onCodeAutoRetrievalTimeout: (p0) => sc.sink.add(p0),
       onVerificationFailed: (p0) => sc.sink.add(p0.message),
     );
-    sc.sink.add(null);
 
     return sc;
   }

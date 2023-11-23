@@ -23,8 +23,16 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   final route = getIt<NavigationServices>();
 
   @override
+  void initState() {
+    super.initState();
+    getIt<HiveConfig>().storeData(
+      key: HiveKeys.isFirstRun,
+      value: false,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    getIt<HiveConfig>().storeData(key: HiveKeys.isFirstRun, value: false);
     return Scaffold(
       appBar: null,
       body: PageView.builder(

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tsc_app/core/common_widgets/custom_btn.dart';
-import 'package:tsc_app/core/common_widgets/error_dialog.dart';
-import 'package:tsc_app/core/common_widgets/loader.dart';
+import 'package:tsc_app/core/common_widgets/dialogs.dart';
 import 'package:tsc_app/core/di/setup.dart';
 import 'package:tsc_app/core/fonts/font.dart';
 import 'package:tsc_app/core/services/navigation_services.dart';
@@ -11,7 +10,10 @@ import 'package:tsc_app/features/cart/presentation/cart_bloc/bloc.dart';
 import 'package:tsc_app/features/cart/presentation/cart_bloc/events.dart';
 import 'package:tsc_app/features/cart/presentation/cart_bloc/states.dart';
 import 'package:tsc_app/features/cart/presentation/widgets/cart_item.dart';
+import 'package:tsc_app/features/cart/presentation/widgets/cart_loader.dart';
 import 'package:tsc_app/features/cart/presentation/widgets/checkout_card.dart';
+
+import '../../domain/entities/cart_item.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -26,8 +28,7 @@ class _CartPageState extends State<CartPage> {
   @override
   void initState() {
     super.initState();
-    cartBloc = context.read<CartBloc>();
-    cartBloc.add(CheckExistCartEvent());
+    cartBloc = context.read<CartBloc>()..add(CheckExistCartEvent());
   }
 
   @override
@@ -51,22 +52,23 @@ class _CartPageState extends State<CartPage> {
       body: BlocConsumer<CartBloc, CartBlocStates>(
         listener: (context, state) {
           if (state is FailedState) {
-            DialogHandler.showErrorDialog(
-              context,
-              errorMsg: state.exception.message,
+            DialogHandler.show(
+              context: context,
+              state: DialogState.error,
+              msg: state.exception.message,
             );
           }
         },
         builder: (context, state) {
           if (state is LoadingState) {
-            return const Loader();
+            return const CartShimmerLoader();
           } else if (state is FailedState) {
             return const SizedBox.shrink();
           } else if (!cartBloc.isCartExist) {
             return _createUserCart();
           }
 
-          return cartBloc.items.isEmpty
+          return cartBloc.items?.isEmpty ?? true
               ? _emptyUserCart()
               : ListView.builder(
                   physics: const BouncingScrollPhysics(),
@@ -74,25 +76,24 @@ class _CartPageState extends State<CartPage> {
                     horizontal: 20.w,
                     vertical: 4.h,
                   ),
-                  itemCount: cartBloc.items.length,
+                  itemCount: cartBloc.items!.length,
                   itemBuilder: (c, i) {
+                    final CartItem item = cartBloc.items![i];
                     return CartItemUi(
-                      key: UniqueKey(),
-                      item: cartBloc.items[i],
+                      key: ValueKey(item.id),
+                      item: item,
                       onDelete: () {
                         cartBloc.add(
                           RemoveItemFromCart(
-                            docId:
-                                "${cartBloc.items[i].id}-${cartBloc.items[i].name}",
-                            itemId: cartBloc.items[i].id,
+                            docId: "${item.id}-${item.name}",
+                            itemId: item.id,
                           ),
                         );
                       },
                       onChangeQuantity: (quantity) {
                         cartBloc.add(
                           ChangeItemQuantity(
-                            documentId:
-                                "${cartBloc.items[i].id}-${cartBloc.items[i].name}",
+                            documentId: "${item.id}-${item.name}",
                             quantity: quantity,
                           ),
                         );
@@ -104,11 +105,11 @@ class _CartPageState extends State<CartPage> {
       ),
       bottomNavigationBar: BlocBuilder<CartBloc, CartBlocStates>(
         builder: (context, state) {
-          if (!cartBloc.isCartExist || cartBloc.items.isEmpty) {
+          if (!cartBloc.isCartExist || (cartBloc.items?.isEmpty ?? true)) {
             return const SizedBox.shrink();
           }
 
-          return CheckoutCard(items: cartBloc.items);
+          return CheckoutCard(items: cartBloc.items ?? []);
         },
       ),
     );

@@ -36,19 +36,23 @@ class _CartItemUiState extends State<CartItemUi> {
     super.initState();
     quantity = widget.item.quantity;
 
-    // get image Url
-    getIt<FireBaseStorageService>()
-        .getDownloadUrl("products/${widget.item.imageUrl}")
-        .then((value) {
-      setState(() {
-        url = value;
+    if (context.mounted) {
+      getIt<FireBaseStorageService>()
+          .getDownloadUrl("products/${widget.item.imageUrl}")
+          .then((value) {
+        setState(() => url = value);
       });
-    });
+    }
 
     stream = getIt<CloudFireStoreService>().listenToCartItemChanges(
       docId: "${widget.item.id}-${widget.item.name}",
       cartId: getIt<HiveConfig>().getData(key: HiveKeys.userId),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -108,7 +112,10 @@ class _CartItemUiState extends State<CartItemUi> {
                   ),
                   child: url == null
                       ? const SizedBox.shrink()
-                      : CustomCachedImage(url: url!),
+                      : CustomCachedImage(
+                          key: UniqueKey(),
+                          url: url!,
+                        ),
                 ),
                 SizedBox(width: 12.w),
                 Expanded(
@@ -145,7 +152,7 @@ class _CartItemUiState extends State<CartItemUi> {
                                     ),
                           ),
                           Text(
-                            (widget.item.price * quantity).toStringAsFixed(2),
+                            (widget.item.price).toStringAsFixed(2),
                             style:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
                                       color: const Color(0xFF231D25),
