@@ -18,9 +18,13 @@ import 'package:tsc_app/features/auth/presentation/pages/sign_up_page.dart';
 import '../../../../core/common_widgets/dialogs.dart';
 import '../blocs/login_bloc/login_state.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
 
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController phoneCon = TextEditingController();
   final TextEditingController passCon = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -28,6 +32,13 @@ class LoginPage extends StatelessWidget {
   final router = getIt<NavigationServices>();
   final loginBloc = getIt<LoginBloc>();
   final hiveHelper = getIt<HiveConfig>();
+
+  @override
+  void dispose() {
+    phoneCon.dispose();
+    passCon.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,24 +114,26 @@ class LoginPage extends StatelessWidget {
                 BlocConsumer<LoginBloc, LoginStates>(
                   bloc: loginBloc,
                   listener: (context, state) {
+                    if (state is LoginDone) {
+                      router.goTo(
+                        context,
+                        page: OtpPage(phoneNumber: phoneCon.text.trim()),
+                      );
+                    }
                     if (state is LoginFailed) {
                       DialogHandler.show(
                         context: context,
                         state: DialogState.error,
-                        msg: state.exception.message,
-                      );
-                    }
-                    if (state is LoginDone) {
-                      router.goTo(
-                        page: OtpPage(phoneNumber: phoneCon.text.trim()),
+                        msg: state.errorMsg,
                       );
                     }
                   },
-                  builder: (context, state) {
+                  builder: (_, state) {
                     if (state is LoginLoading) {
                       return const Loader();
+                    } else {
+                      return CustomBtn(onPress: login, text: "Login");
                     }
-                    return CustomBtn(onPress: login, text: "Login");
                   },
                 ),
                 SizedBox(height: 28.h),
@@ -189,7 +202,7 @@ class LoginPage extends StatelessWidget {
   }
 
   void goToSignUpPage() {
-    router.goTo(replace: true, page: SignUpPage());
+    router.goTo(context, replace: true, page: SignUpPage());
   }
 
   void login() {

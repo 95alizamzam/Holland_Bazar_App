@@ -45,12 +45,13 @@ class _BadgeBoxState extends State<BadgeBox> {
             elevation: 4,
           ),
           position: badges.BadgePosition.topEnd(
-            end: 0,
+            end: -6,
             top: -10,
           ),
-          child: const Image(
-            image: AssetImage(
-              "assets/home_page/cart_icon.png",
+          child: const Center(
+            child: Image(
+              fit: BoxFit.contain,
+              image: AssetImage("assets/home_page/cart_icon.png"),
             ),
           ),
         );

@@ -178,7 +178,7 @@ class _CartPageState extends State<CartPage> {
           SizedBox(height: 40.h),
           CustomBtn(
             onPress: () {
-              getIt<NavigationServices>().goBack();
+              getIt<NavigationServices>().goBack(context);
             },
             text: "Discover",
           ),

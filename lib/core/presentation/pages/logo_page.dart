@@ -28,14 +28,14 @@ class _LogoPageState extends State<LogoPage> {
     if (isFirstRun == null || isFirstRun) {
       Future.delayed(
         const Duration(milliseconds: 500),
-        () => route.goTo(page: const OnBoardingPage()),
+        () => route.goTo(context, page: const OnBoardingPage()),
       );
     } else {
       authService.auth.idTokenChanges().listen((user) {
         if (user == null) {
-          route.goTo(page: LoginPage());
+          route.goTo(context, page: const LoginPage());
         } else {
-          route.goTo(clean: true, page: const HomePage());
+          route.goTo(context, clean: true, page: const HomePage());
         }
       });
     }

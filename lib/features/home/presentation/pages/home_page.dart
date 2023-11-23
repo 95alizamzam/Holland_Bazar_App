@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tsc_app/core/common_widgets/dialogs.dart';
 import 'package:tsc_app/core/di/setup.dart';
@@ -73,8 +74,6 @@ class _HomePageState extends State<HomePage> {
       body: BlocListener<CartBloc, CartBlocStates>(
         listener: (ctx, state) {
           if (state is AddItemToCartDoneState) {
-            Navigator.of(context).pop();
-
             DialogHandler.show(
               context: context,
               state: DialogState.success,
@@ -82,8 +81,6 @@ class _HomePageState extends State<HomePage> {
             );
           }
           if (state is FailedState) {
-            Navigator.of(context).pop();
-
             DialogHandler.show(
               context: context,
               state: DialogState.error,
@@ -92,10 +89,9 @@ class _HomePageState extends State<HomePage> {
           }
 
           if (state is AddItemToCartLoadingState) {
-            DialogHandler.show(
-              context: context,
-              state: DialogState.loading,
-            );
+            EasyLoading.show();
+          } else {
+            EasyLoading.dismiss();
           }
         },
         child: SingleChildScrollView(
@@ -129,12 +125,12 @@ class _HomePageState extends State<HomePage> {
                             GestureDetector(
                               onTap: () {
                                 router.goTo(
+                                  context,
                                   useAnimation: true,
                                   page: const CartPage(),
                                 );
                               },
                               child: Container(
-                                width: 51.w,
                                 padding: EdgeInsets.all(10.r),
                                 decoration: BoxDecoration(
                                   color: Colors.white,

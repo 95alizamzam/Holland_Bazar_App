@@ -3,17 +3,15 @@ import 'package:injectable/injectable.dart';
 
 @lazySingleton
 class NavigationServices {
-  static final GlobalKey<NavigatorState> _navKey = GlobalKey<NavigatorState>();
-  static GlobalKey<NavigatorState> get navKey => _navKey;
-
-  void goTo({
+  void goTo(
+    BuildContext context, {
     required Widget page,
     bool replace = false,
     bool clean = false,
     bool useAnimation = false,
   }) {
     if (replace) {
-      Navigator.of(_navKey.currentState!.context).pushReplacement(
+      Navigator.of(context).pushReplacement(
         PageRouteBuilder(
           pageBuilder: (_, __, ___) => page,
           transitionDuration: const Duration(seconds: 1),
@@ -30,7 +28,7 @@ class NavigationServices {
         ),
       );
     } else if (clean) {
-      Navigator.of(_navKey.currentState!.context).pushAndRemoveUntil(
+      Navigator.of(context).pushAndRemoveUntil(
         PageRouteBuilder(
           pageBuilder: (_, __, ___) => page,
           transitionDuration: const Duration(seconds: 1),
@@ -48,7 +46,7 @@ class NavigationServices {
         (route) => false,
       );
     } else {
-      Navigator.of(_navKey.currentState!.context).push(
+      Navigator.of(context).push(
         PageRouteBuilder(
           pageBuilder: (_, __, ___) => page,
           transitionDuration: const Duration(seconds: 1),
@@ -67,7 +65,7 @@ class NavigationServices {
     }
   }
 
-  void goBack() {
-    Navigator.of(_navKey.currentState!.context).pop();
+  void goBack(BuildContext context) {
+    Navigator.of(context).pop();
   }
 }

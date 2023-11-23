@@ -109,7 +109,10 @@ class SignUpPage extends StatelessWidget {
                     style: const ButtonStyle(
                       padding: MaterialStatePropertyAll(EdgeInsets.zero),
                     ),
-                    onPressed: goToLoginPage,
+                    onPressed: () {
+                      router.goTo(context,
+                          replace: true, page: const LoginPage());
+                    },
                     child: Text(
                       "Login",
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -128,11 +131,5 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  void goToLoginPage() {
-    router.goTo(replace: true, page: LoginPage());
-  }
-
-  void signUp() {
-    // router.goTo(page: const OtpPage());
-  }
+  void signUp() {}
 }

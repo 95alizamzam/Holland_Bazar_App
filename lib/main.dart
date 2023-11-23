@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:tsc_app/core/di/setup.dart';
 import 'package:tsc_app/core/presentation/pages/logo_page.dart';
 import 'package:tsc_app/core/services/hive_config.dart';
-import 'package:tsc_app/core/services/navigation_services.dart';
 import 'package:tsc_app/core/thems/light_theme.dart';
 import 'package:tsc_app/features/cart/presentation/cart_bloc/bloc.dart';
 import 'core/services/bloc_observer.dart';
@@ -44,10 +44,11 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Tsc Test App',
           debugShowCheckedModeBanner: false,
-          navigatorKey: NavigationServices.navKey,
+          // navigatorKey: NavigationServices.navKey,
           themeMode: ThemeMode.light,
           theme: AppTheme.lightTheme,
           home: const LogoPage(),
+          builder: EasyLoading.init(),
         ),
       ),
     );

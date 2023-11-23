@@ -67,17 +67,14 @@ class _ProductCardState extends State<ProductCard> {
                         child: InkWell(
                           onTap: widget.onAddPress,
                           child: Container(
-                            width: 24.w,
-                            height: 24.h,
+                            width: 35.w,
+                            height: 35.h,
                             decoration: const BoxDecoration(
                               color: Colors.white,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(
-                              Icons.add,
-                              color: Color(0xFFFB7552),
-                              size: 18,
-                            ),
+                            child: const Icon(Icons.add,
+                                color: Color(0xFFFB7552), size: 20),
                           ),
                         ),
                       ),

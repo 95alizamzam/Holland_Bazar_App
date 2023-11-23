@@ -24,7 +24,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     await authService.signInWithPhoneNumber(
       phoneNumber: phoneNumber,
       onCodeSent: () {
-        // triggered when firebase send code with sms to user device
+        // triggered when firebase send sms contains verification code to user device
         sc.add(null);
       },
       onCodeAutoRetrievalTimeout: (p0) => sc.sink.add(p0),

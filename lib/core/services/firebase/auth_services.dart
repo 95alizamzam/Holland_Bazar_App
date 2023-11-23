@@ -26,16 +26,14 @@ class FirebaseAuthServices {
       },
       codeSent: (String verificationId, int? resendToken) async {
         await hiveHelper.storeData(
-          key: HiveKeys.authVerificationId,
-          value: verificationId,
-        );
+            key: HiveKeys.authVerificationId, value: verificationId);
         onCodeSent();
       },
       verificationFailed: (FirebaseAuthException e) async {
         onVerificationFailed(e);
       },
       codeAutoRetrievalTimeout: (String verificationId) async {
-        onCodeAutoRetrievalTimeout("Time Out to get SMS Verification Code");
+        onCodeAutoRetrievalTimeout("TimeOut to get SMS Verification Code");
       },
     );
   }

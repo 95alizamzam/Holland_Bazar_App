@@ -100,7 +100,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                     onPress: () {
                       if (currentIndex ==
                           OnBoardingPageEnum.values.length - 1) {
-                        route.goTo(clean: true, page: LoginPage());
+                        route.goTo(
+                          context,
+                          clean: true,
+                          page: const LoginPage(),
+                        );
                       } else {
                         controller.nextPage(
                           duration: const Duration(milliseconds: 200),

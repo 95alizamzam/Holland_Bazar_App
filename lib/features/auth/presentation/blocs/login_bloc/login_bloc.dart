@@ -18,25 +18,18 @@ class LoginBloc extends Bloc<LoginEvents, LoginStates> {
       emit(LoginLoading());
       final response = await loginUseCase(event.phoneNumber);
       response.fold(
-        (l) => emit(LoginFailed(exception: l)),
+        (l) => emit(LoginFailed(errorMsg: l.message)),
         (r) {
-          r.stream.listen(
-            (error) {
-              if (error == null) {
-                add(UpdateUiSuccess());
-              } else {
-                debugPrint("-----------------------------\n");
-                debugPrint("The Error Message ---> $error");
-                debugPrint("-----------------------------\n");
-
-                add(UpdateUiFailed(exception: CustomException(message: error)));
-              }
-            },
-            cancelOnError: true,
-            onError: (e, s) => add(UpdateUiFailed(
-                exception: CustomException(message: e.toString()))),
-            onDone: () => add(UpdateUiSuccess()),
-          );
+          r.stream.listen((event) {
+            if (event == null) {
+              add(UpdateUiSuccess());
+            } else {
+              debugPrint("-----------------------------\n");
+              debugPrint("The Error Message ---> $event");
+              debugPrint("-----------------------------\n");
+              add(UpdateUiFailed(exception: CustomException(message: event)));
+            }
+          });
         },
       );
     });
@@ -46,7 +39,7 @@ class LoginBloc extends Bloc<LoginEvents, LoginStates> {
     });
 
     on<UpdateUiFailed>((event, emit) {
-      emit(LoginFailed(exception: event.exception));
+      emit(LoginFailed(errorMsg: event.exception.message));
     });
   }
 }

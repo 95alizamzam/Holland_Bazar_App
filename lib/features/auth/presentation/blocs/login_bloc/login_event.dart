@@ -8,6 +8,8 @@ class LoginEvent extends LoginEvents {
   LoginEvent({required this.phoneNumber});
 }
 
+class OnListenEvent extends LoginEvents {}
+
 class UpdateUiSuccess extends LoginEvents {}
 
 class UpdateUiFailed extends LoginEvents {

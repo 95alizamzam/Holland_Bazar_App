@@ -42,6 +42,15 @@ class _OfferCardState extends State<OfferCard> {
               child: CustomCachedImage(
                 url: image!,
                 fit: BoxFit.fill,
+                placeHolder: Shimmer.fromColors(
+                  baseColor: Colors.grey.shade100,
+                  highlightColor: Colors.white,
+                  child: Container(
+                    height: 195.h,
+                    width: 195.w,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
     );
