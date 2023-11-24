@@ -1,6 +1,8 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../features/auth/data/models/user_model.dart';
+
 @lazySingleton
 class HiveConfig {
   final String boxName = "tsc_box";
@@ -16,14 +18,15 @@ class HiveConfig {
   dynamic getData({required String key}) {
     return box.get(key);
   }
+
+  String? getUserId() {
+    final UserDataModel? user = box.get(HiveKeys.userData);
+    return user?.userId;
+  }
 }
 
 class HiveKeys {
   static String isFirstRun = "isFirstRun";
   static String authVerificationId = "verificationId";
-
-  static String userId = "userId";
-  static String userPhoneNumber = "userPhoneNumber";
-  static String userName = "userName";
-  static String userToken = "userToken";
+  static String userData = "userData";
 }

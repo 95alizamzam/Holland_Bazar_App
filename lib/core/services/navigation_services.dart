@@ -14,7 +14,7 @@ class NavigationServices {
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
           pageBuilder: (_, __, ___) => page,
-          transitionDuration: const Duration(seconds: 1),
+          transitionDuration: const Duration(milliseconds: 500),
           transitionsBuilder: (_, a, __, child) {
             if (useAnimation) {
               const start = Offset(0, 1);
@@ -31,7 +31,7 @@ class NavigationServices {
       Navigator.of(context).pushAndRemoveUntil(
         PageRouteBuilder(
           pageBuilder: (_, __, ___) => page,
-          transitionDuration: const Duration(seconds: 1),
+          transitionDuration: const Duration(milliseconds: 500),
           transitionsBuilder: (_, a, __, child) {
             if (useAnimation) {
               const start = Offset(0, 1);
@@ -49,7 +49,7 @@ class NavigationServices {
       Navigator.of(context).push(
         PageRouteBuilder(
           pageBuilder: (_, __, ___) => page,
-          transitionDuration: const Duration(seconds: 1),
+          transitionDuration: const Duration(milliseconds: 500),
           transitionsBuilder: (_, a, __, child) {
             if (useAnimation) {
               const start = Offset(0, 1);

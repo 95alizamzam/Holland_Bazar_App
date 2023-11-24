@@ -19,7 +19,7 @@ class QuantityBtn extends StatelessWidget {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              offset: Offset(0, 2),
+              offset: Offset(0, 1),
               color: Color(0xFFFE5A01),
               blurRadius: 2,
               spreadRadius: 1.3,

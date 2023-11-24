@@ -45,6 +45,7 @@ class DialogHandler {
             )
           : AlertDialog(
               shape: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.circular(20),
               ),
               content: Column(

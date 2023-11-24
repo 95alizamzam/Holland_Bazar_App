@@ -24,7 +24,7 @@ class CartBloc extends Bloc<CartBlocEvents, CartBlocStates> {
 
   List<CartItem>? items;
   bool isCartExist = false;
-  final userId = getIt<HiveConfig>().getData(key: HiveKeys.userId);
+  final userId = getIt<HiveConfig>().getUserId() ?? "";
   CartBloc({
     required this.checkExsistCartUseCase,
     required this.createUserCartUseCase,

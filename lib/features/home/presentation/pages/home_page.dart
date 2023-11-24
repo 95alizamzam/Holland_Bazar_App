@@ -54,10 +54,7 @@ class _HomePageState extends State<HomePage> {
         statusBarBrightness: Brightness.dark,
       ),
     );
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual,
-      overlays: [SystemUiOverlay.top],
-    );
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
@@ -71,183 +68,183 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFBFAFC),
-      body: BlocListener<CartBloc, CartBlocStates>(
-        listener: (ctx, state) {
-          if (state is AddItemToCartDoneState) {
-            DialogHandler.show(
-              context: context,
-              state: DialogState.success,
-              msg: "Your Item has been added to Cart Successfully",
-            );
-          }
-          if (state is FailedState) {
-            DialogHandler.show(
-              context: context,
-              state: DialogState.error,
-              msg: state.exception.message,
-            );
-          }
+      body: SafeArea(
+        top: false,
+        child: BlocListener<CartBloc, CartBlocStates>(
+          listener: (ctx, state) {
+            if (state is AddItemToCartDoneState) {
+              DialogHandler.show(
+                context: context,
+                state: DialogState.success,
+                msg: "Your Item has been added to Cart Successfully",
+              );
+            }
+            if (state is FailedState) {
+              DialogHandler.show(
+                context: context,
+                state: DialogState.error,
+                msg: state.exception.message,
+              );
+            }
 
-          if (state is AddItemToCartLoadingState) {
-            EasyLoading.show();
-          } else {
-            EasyLoading.dismiss();
-          }
-        },
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              // BIG IMAGE
-              Stack(
-                fit: StackFit.loose,
-                children: [
-                  const Image(
-                    image: AssetImage("assets/home_page/cover_img.png"),
-                    fit: BoxFit.cover,
-                  ),
-                  Positioned(
-                    top: 54.h,
-                    left: 0.w,
-                    right: 0.w,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: SizedBox(
-                        height: 54.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Expanded(child: HomeSearchField()),
-                            SizedBox(width: 7.w),
-                            GestureDetector(
-                              onTap: () {
-                                router.goTo(
-                                  context,
-                                  useAnimation: true,
-                                  page: const CartPage(),
-                                );
-                              },
-                              child: Container(
-                                padding: EdgeInsets.all(10.r),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12.r),
+            if (state is AddItemToCartLoadingState) {
+              EasyLoading.show();
+            } else {
+              EasyLoading.dismiss();
+            }
+          },
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                // BIG IMAGE
+                Stack(
+                  children: [
+                    const Image(
+                      image: AssetImage("assets/home_page/cover_img.png"),
+                      fit: BoxFit.cover,
+                    ),
+                    Positioned(
+                      top: 54.h,
+                      left: 0.w,
+                      right: 0.w,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        child: SizedBox(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Expanded(child: HomeSearchField()),
+                              SizedBox(width: 7.w),
+                              GestureDetector(
+                                onTap: () {
+                                  router.goTo(
+                                    context,
+                                    useAnimation: true,
+                                    page: const CartPage(),
+                                  );
+                                },
+                                child: Container(
+                                  height: 48.h,
+                                  padding: EdgeInsets.all(10.r),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12.r),
+                                  ),
+                                  child: const BadgeBox(),
                                 ),
-                                child: const BadgeBox(),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    top: 140.h,
-                    left: 23.w,
-                    right: 0.w,
-                    child: Text(
-                      'Holland Bazar',
-                      style: TextStyle(
-                        fontSize: 32.sp,
-                        fontFamily: AppFonts.metropolisExtraBold,
-                        color: Colors.white,
+                    Positioned(
+                      top: 140.h,
+                      left: 23.w,
+                      right: 0.w,
+                      child: Text(
+                        'Holland Bazar',
+                        style: TextStyle(
+                          fontSize: 32.sp,
+                          fontFamily: AppFonts.metropolisExtraBold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    top: 175.h,
-                    left: 23.w,
-                    right: 0.w,
-                    child: Text(
-                      'Powered By TFC',
-                      style: TextStyle(
-                        fontSize: 8.sp,
-                        fontFamily: AppFonts.metropolisExtraBold,
-                        color: Colors.white,
+                    Positioned(
+                      top: 165.h,
+                      left: 23.w,
+                      right: 0.w,
+                      child: Text(
+                        'Powered By TFC',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontFamily: AppFonts.metropolisExtraBold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const OffersHeadLine(),
-              // OFFERS
-              BlocBuilder<OffersBloc, OffersStates>(
-                bloc: offersBloc,
-                builder: (context, state) {
-                  if (state is OffersDoneState) {
-                    return SizedBox(
-                      height: 195.h,
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: offersBloc.offers.length,
-                        itemBuilder: (c, i) {
-                          return OfferCard(
-                            imageUrl: offersBloc.offers[i].imageUrl,
-                          );
-                        },
-                      ),
-                    );
-                  }
+                  ],
+                ),
+                const OffersHeadLine(),
+                // OFFERS
+                BlocBuilder<OffersBloc, OffersStates>(
+                  bloc: offersBloc,
+                  builder: (context, state) {
+                    if (state is OffersDoneState) {
+                      return SizedBox(
+                        height: 195.h,
+                        child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: offersBloc.offers.length,
+                          itemBuilder: (c, i) {
+                            return OfferCard(
+                              imageUrl: offersBloc.offers[i].imageUrl,
+                            );
+                          },
+                        ),
+                      );
+                    }
 
-                  return const SizedBox.shrink();
-                },
-              ),
-              SizedBox(height: 40.h),
-              // CATEGORIES
-              BlocBuilder<CategoriesBloc, CategoriessStates>(
-                bloc: categoriesBloc,
-                builder: (c, state) {
-                  if (state is CategoriesDoneState) {
-                    return SizedBox(
-                      height: 100.h,
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: categoriesBloc.categories.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (c, i) {
-                          return CategoryCard(
-                            category: categoriesBloc.categories[i],
-                          );
-                        },
-                      ),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
-              const FrequentlyOrderedHeadLine(),
-              // PRODUCTS
-              BlocBuilder<ProductsBloc, ProductsStates>(
-                bloc: homeBloc,
-                builder: (c, state) {
-                  if (state is ProductsDoneState) {
-                    return SizedBox(
-                      height: 270.h,
-                      child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: homeBloc.products.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (c, i) {
-                          return ProductCard(
-                            onAddPress: () {
-                              addItemToCart(homeBloc.products[i]);
-                            },
+                    return const SizedBox.shrink();
+                  },
+                ),
+                SizedBox(height: 40.h),
+                // CATEGORIES
+                BlocBuilder<CategoriesBloc, CategoriessStates>(
+                  bloc: categoriesBloc,
+                  builder: (c, state) {
+                    if (state is CategoriesDoneState) {
+                      return SizedBox(
+                        height: 100.h,
+                        child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: categoriesBloc.categories.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (c, i) {
+                            return CategoryCard(
+                              category: categoriesBloc.categories[i],
+                            );
+                          },
+                        ),
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
+                const FrequentlyOrderedHeadLine(),
+                // PRODUCTS
+                BlocBuilder<ProductsBloc, ProductsStates>(
+                  bloc: homeBloc,
+                  builder: (_, state) {
+                    if (state is ProductsDoneState) {
+                      return SizedBox(
+                        height: 240,
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: homeBloc.products.length,
+                          scrollDirection: Axis.horizontal,
+                          itemExtent: 160.w,
+                          itemBuilder: (c, i) => ProductCard(
+                            onAddPress: () =>
+                                addItemToCart(homeBloc.products[i]),
                             product: homeBloc.products[i],
-                          );
-                        },
-                      ),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
-              SizedBox(height: 40.h),
-            ],
+                          ),
+                        ),
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
+                SizedBox(height: 20.h),
+              ],
+            ),
           ),
         ),
       ),

@@ -44,10 +44,13 @@ class _CartItemUiState extends State<CartItemUi> {
       });
     }
 
-    stream = getIt<CloudFireStoreService>().listenToCartItemChanges(
-      docId: "${widget.item.id}-${widget.item.name}",
-      cartId: getIt<HiveConfig>().getData(key: HiveKeys.userId),
-    );
+    final id = getIt<HiveConfig>().getUserId();
+    if (id != null) {
+      stream = getIt<CloudFireStoreService>().listenToCartItemChanges(
+        docId: "${widget.item.id}-${widget.item.name}",
+        cartId: id,
+      );
+    }
   }
 
   @override
@@ -180,7 +183,7 @@ class _CartItemUiState extends State<CartItemUi> {
                     Text(
                       "$quantity",
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 18.sp,
                         color: const Color(0xFF231D25),
                         fontWeight: FontWeight.bold,
                       ),

@@ -36,10 +36,9 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 160.w,
       margin: EdgeInsets.symmetric(horizontal: 5.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.blue,
         borderRadius: BorderRadius.circular(14),
       ),
       child: Column(
@@ -54,21 +53,24 @@ class _ProductCardState extends State<ProductCard> {
                     children: [
                       Container(
                         width: double.maxFinite,
-                        height: 147.h,
+                        height: 140.h,
                         decoration: BoxDecoration(
                           color: const Color(0xFFF8EBE8),
                           borderRadius: BorderRadius.circular(14.r),
                         ),
-                        child: CustomCachedImage(url: url!),
+                        child: CustomCachedImage(
+                          url: url!,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                       Positioned(
-                        top: 6.h,
-                        right: 2.w,
+                        top: 4.h,
+                        right: 4.w,
                         child: InkWell(
                           onTap: widget.onAddPress,
                           child: Container(
-                            width: 35.w,
-                            height: 35.h,
+                            width: 25.w,
+                            height: 25.h,
                             decoration: const BoxDecoration(
                               color: Colors.white,
                               shape: BoxShape.circle,
@@ -115,6 +117,7 @@ class _ProductCardState extends State<ProductCard> {
                 ),
                 SizedBox(height: 10.h),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       "\$${widget.product.price}",
@@ -125,6 +128,7 @@ class _ProductCardState extends State<ProductCard> {
                           ),
                     ),
                     const Spacer(),
+                    SizedBox(width: 6.w),
                     Text(
                       "${widget.product.rating}",
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -133,14 +137,13 @@ class _ProductCardState extends State<ProductCard> {
                             fontWeight: FontWeight.w600,
                           ),
                     ),
-                    SizedBox(width: 7.w),
                     const Icon(
                       Icons.star,
                       color: Color(0xFFFFA60F),
+                      size: 18,
                     )
                   ],
                 ),
-                SizedBox(height: 15.h),
               ],
             ),
           ),

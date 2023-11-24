@@ -10,6 +10,7 @@ import 'package:tsc_app/core/services/hive_config.dart';
 import 'package:tsc_app/core/thems/light_theme.dart';
 import 'package:tsc_app/features/cart/presentation/cart_bloc/bloc.dart';
 import 'core/services/bloc_observer.dart';
+import 'features/auth/data/models/user_model.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -19,8 +20,11 @@ void main() async {
   );
 
   configureDependencies();
+
   await Hive.initFlutter();
+  Hive.registerAdapter(UserDataModelAdapter());
   await getIt<HiveConfig>().init();
+
   Bloc.observer = MyBlocObserver();
 
   runApp(const MyApp());

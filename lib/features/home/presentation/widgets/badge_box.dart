@@ -19,9 +19,12 @@ class _BadgeBoxState extends State<BadgeBox> {
   @override
   void initState() {
     super.initState();
-    stream = getIt<CloudFireStoreService>().listenToCartChanges(
-      cartId: getIt<HiveConfig>().getData(key: HiveKeys.userId),
-    );
+    final id = getIt<HiveConfig>().getUserId();
+    if (id != null) {
+      stream = getIt<CloudFireStoreService>().listenToCartChanges(
+        cartId: id,
+      );
+    }
   }
 
   @override
@@ -45,8 +48,8 @@ class _BadgeBoxState extends State<BadgeBox> {
             elevation: 4,
           ),
           position: badges.BadgePosition.topEnd(
-            end: -6,
-            top: -10,
+            end: -4,
+            top: -8,
           ),
           child: const Center(
             child: Image(

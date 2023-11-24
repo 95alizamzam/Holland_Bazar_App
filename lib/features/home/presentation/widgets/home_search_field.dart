@@ -6,40 +6,43 @@ class HomeSearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      textInputAction: TextInputAction.search,
-      keyboardType: TextInputType.text,
-      enabled: true,
-      decoration: InputDecoration(
+    return SizedBox(
+      height: 48.h,
+      child: TextFormField(
+        textInputAction: TextInputAction.search,
+        keyboardType: TextInputType.text,
         enabled: true,
-        filled: true,
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 22.w,
-          vertical: 13.h,
-        ),
-        fillColor: Colors.white,
-        hintText: "Search",
-        prefixIcon: const Icon(
-          Icons.search,
-          color: Color(0xFF959FA8),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(9.r),
-          borderSide: const BorderSide(
-            color: Colors.white,
+        decoration: InputDecoration(
+          enabled: true,
+          filled: true,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 22.w,
+            vertical: 13.h,
           ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.white,
+          fillColor: Colors.white,
+          hintText: "Search",
+          prefixIcon: const Icon(
+            Icons.search,
+            color: Color(0xFF959FA8),
           ),
-          borderRadius: BorderRadius.circular(9.r),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.white,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(9.r),
+            borderSide: const BorderSide(
+              color: Colors.white,
+            ),
           ),
-          borderRadius: BorderRadius.circular(9.r),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.white,
+            ),
+            borderRadius: BorderRadius.circular(9.r),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.white,
+            ),
+            borderRadius: BorderRadius.circular(9.r),
+          ),
         ),
       ),
     );

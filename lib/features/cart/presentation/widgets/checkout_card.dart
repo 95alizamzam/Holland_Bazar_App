@@ -28,9 +28,12 @@ class _CheckoutCardState extends State<CheckoutCard> {
     super.initState();
 
     usedItems = widget.items;
-    stream = getIt<CloudFireStoreService>().listenToCartChanges(
-      cartId: getIt<HiveConfig>().getData(key: HiveKeys.userId),
-    );
+    final id = getIt<HiveConfig>().getUserId();
+    if (id != null) {
+      stream = getIt<CloudFireStoreService>().listenToCartChanges(
+        cartId: id,
+      );
+    }
   }
 
   @override
