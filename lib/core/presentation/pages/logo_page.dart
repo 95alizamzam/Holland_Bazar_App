@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tsc_app/core/di/setup.dart';
 import 'package:tsc_app/core/presentation/pages/on_boarding_page.dart';
+import 'package:tsc_app/core/presentation/pages/start_up_page.dart';
 import 'package:tsc_app/core/services/firebase/auth_services.dart';
 import 'package:tsc_app/core/services/navigation_services.dart';
 import 'package:tsc_app/features/auth/presentation/pages/login_page.dart';
-import 'package:tsc_app/features/home/presentation/pages/home_page.dart';
 
 import '../../services/hive_config.dart';
 
@@ -35,7 +35,7 @@ class _LogoPageState extends State<LogoPage> {
         if (user == null) {
           route.goTo(context, page: const LoginPage());
         } else {
-          route.goTo(context, clean: true, page: const HomePage());
+          route.goTo(context, clean: true, page: const StartUpPage());
         }
       });
     }

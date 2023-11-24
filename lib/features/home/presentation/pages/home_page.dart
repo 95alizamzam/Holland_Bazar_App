@@ -12,12 +12,9 @@ import 'package:tsc_app/features/cart/presentation/cart_bloc/events.dart';
 import 'package:tsc_app/features/cart/presentation/cart_bloc/states.dart';
 import 'package:tsc_app/features/cart/presentation/pages/cart_page.dart';
 import 'package:tsc_app/features/home/presentation/blocs/categories_bloc/bloc.dart';
-import 'package:tsc_app/features/home/presentation/blocs/categories_bloc/events.dart';
 import 'package:tsc_app/features/home/presentation/blocs/categories_bloc/states.dart';
 import 'package:tsc_app/features/home/presentation/blocs/offers_bloc/bloc.dart';
-import 'package:tsc_app/features/home/presentation/blocs/offers_bloc/events.dart';
 import 'package:tsc_app/features/home/presentation/blocs/offers_bloc/states.dart';
-import 'package:tsc_app/features/home/presentation/blocs/products_bloc/events.dart';
 import 'package:tsc_app/features/home/presentation/blocs/products_bloc/states.dart';
 import 'package:tsc_app/features/home/presentation/widgets/badge_box.dart';
 import 'package:tsc_app/features/home/presentation/widgets/category_card.dart';
@@ -38,11 +35,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final ProductsBloc homeBloc = getIt<ProductsBloc>();
-  final OffersBloc offersBloc = getIt<OffersBloc>();
-  final CategoriesBloc categoriesBloc = getIt<CategoriesBloc>();
-
   final router = getIt<NavigationServices>();
+
+  late ProductsBloc productBloc;
+  late OffersBloc offersBloc;
+  late CategoriesBloc categoriesBloc;
 
   @override
   void initState() {
@@ -59,9 +56,10 @@ class _HomePageState extends State<HomePage> {
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
-    homeBloc.add(GetHomeProductsEvent());
-    offersBloc.add(GetHomeOffersEvent());
-    categoriesBloc.add(GetHomeCategoriesEvent());
+
+    productBloc = context.read<ProductsBloc>();
+    offersBloc = context.read<OffersBloc>();
+    categoriesBloc = context.read<CategoriesBloc>();
   }
 
   @override
@@ -146,26 +144,27 @@ class _HomePageState extends State<HomePage> {
                       top: 140.h,
                       left: 23.w,
                       right: 0.w,
-                      child: Text(
-                        'Holland Bazar',
-                        style: TextStyle(
-                          fontSize: 32.sp,
-                          fontFamily: AppFonts.metropolisExtraBold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 165.h,
-                      left: 23.w,
-                      right: 0.w,
-                      child: Text(
-                        'Powered By TFC',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontFamily: AppFonts.metropolisExtraBold,
-                          color: Colors.white,
-                        ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Holland Bazar',
+                            style: TextStyle(
+                              fontSize: 32.sp,
+                              fontFamily: AppFonts.metropolisExtraBold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            'Powered By TFC',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontFamily: AppFonts.metropolisExtraBold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -173,7 +172,6 @@ class _HomePageState extends State<HomePage> {
                 const OffersHeadLine(),
                 // OFFERS
                 BlocBuilder<OffersBloc, OffersStates>(
-                  bloc: offersBloc,
                   builder: (context, state) {
                     if (state is OffersDoneState) {
                       return SizedBox(
@@ -197,7 +195,6 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 40.h),
                 // CATEGORIES
                 BlocBuilder<CategoriesBloc, CategoriessStates>(
-                  bloc: categoriesBloc,
                   builder: (c, state) {
                     if (state is CategoriesDoneState) {
                       return SizedBox(
@@ -220,7 +217,6 @@ class _HomePageState extends State<HomePage> {
                 const FrequentlyOrderedHeadLine(),
                 // PRODUCTS
                 BlocBuilder<ProductsBloc, ProductsStates>(
-                  bloc: homeBloc,
                   builder: (_, state) {
                     if (state is ProductsDoneState) {
                       return SizedBox(
@@ -228,13 +224,13 @@ class _HomePageState extends State<HomePage> {
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
                           physics: const BouncingScrollPhysics(),
-                          itemCount: homeBloc.products.length,
+                          itemCount: productBloc.products.length,
                           scrollDirection: Axis.horizontal,
                           itemExtent: 160.w,
                           itemBuilder: (c, i) => ProductCard(
                             onAddPress: () =>
-                                addItemToCart(homeBloc.products[i]),
-                            product: homeBloc.products[i],
+                                addItemToCart(productBloc.products[i]),
+                            product: productBloc.products[i],
                           ),
                         ),
                       );

@@ -7,6 +7,7 @@ import 'package:tsc_app/core/common_widgets/custom_btn.dart';
 import 'package:tsc_app/core/common_widgets/dialogs.dart';
 import 'package:tsc_app/core/common_widgets/loader.dart';
 import 'package:tsc_app/core/di/setup.dart';
+import 'package:tsc_app/core/presentation/pages/start_up_page.dart';
 import 'package:tsc_app/core/services/firebase/auth_services.dart';
 import 'package:tsc_app/core/services/hive_config.dart';
 import 'package:tsc_app/core/services/navigation_services.dart';
@@ -16,7 +17,6 @@ import 'package:tsc_app/features/auth/presentation/blocs/login_bloc/login_state.
 import 'package:tsc_app/features/auth/presentation/blocs/verify_otp/verify_otp_bloc.dart';
 import 'package:tsc_app/features/auth/presentation/blocs/verify_otp/verify_otp_event.dart';
 import 'package:tsc_app/features/auth/presentation/blocs/verify_otp/verify_otp_state.dart';
-import 'package:tsc_app/features/home/presentation/pages/home_page.dart';
 
 class OtpPage extends StatelessWidget {
   OtpPage({super.key, required this.phoneNumber});
@@ -136,7 +136,11 @@ class OtpPage extends StatelessWidget {
                   bloc: verifyOtpBloc,
                   listener: (context, state) {
                     if (state is VerifyDone) {
-                      router.goTo(context, page: const HomePage(), clean: true);
+                      router.goTo(
+                        context,
+                        page: const StartUpPage(),
+                        clean: true,
+                      );
                     }
                     if (state is VerifyFailed) {
                       DialogHandler.show(

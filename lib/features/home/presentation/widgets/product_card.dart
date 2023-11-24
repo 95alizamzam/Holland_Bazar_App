@@ -38,7 +38,7 @@ class _ProductCardState extends State<ProductCard> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 5.w),
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(14),
       ),
       child: Column(

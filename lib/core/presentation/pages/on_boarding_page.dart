@@ -25,10 +25,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   void initState() {
     super.initState();
-    getIt<HiveConfig>().storeData(
-      key: HiveKeys.isFirstRun,
-      value: false,
-    );
+    getIt<HiveConfig>().storeData(key: HiveKeys.isFirstRun, value: false);
   }
 
   @override
