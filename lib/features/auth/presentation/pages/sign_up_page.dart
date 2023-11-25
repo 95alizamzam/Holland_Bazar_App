@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tsc_app/core/di/setup.dart';
 import 'package:tsc_app/features/auth/presentation/widgets/auth_text_field.dart';
 import 'package:tsc_app/core/services/navigation_services.dart';
-import 'package:tsc_app/core/common_widgets/custom_btn.dart';
+import 'package:tsc_app/core/shared_widgets/custom_btn.dart';
 
 import 'login_page.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:tsc_app/core/common_widgets/cached_image.dart';
+import 'package:tsc_app/core/shared_widgets/cached_image.dart';
 import 'package:tsc_app/core/di/setup.dart';
 import 'package:tsc_app/core/services/firebase/storage_service.dart';
 import 'package:tsc_app/features/home/domain/entities/category.dart';

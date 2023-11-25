@@ -12,6 +12,8 @@ class AuthTextField extends StatelessWidget {
     required this.hint,
     required this.validator,
     required this.controller,
+    this.suffixIcon,
+    this.isSecure = false,
   });
 
   final TextInputType keyboardType;
@@ -19,6 +21,8 @@ class AuthTextField extends StatelessWidget {
   final String hint;
   final OnValidator validator;
   final TextEditingController controller;
+  final Widget? suffixIcon;
+  final bool isSecure;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +31,7 @@ class AuthTextField extends StatelessWidget {
       keyboardType: keyboardType,
       textInputAction: action,
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      obscureText: isSecure,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(
           horizontal: 34.w,
@@ -44,6 +49,8 @@ class AuthTextField extends StatelessWidget {
           color: const Color(0xFFB6B7B7),
           fontFamily: AppFonts.metropolisRegular,
         ),
+        suffixIcon: suffixIcon,
+        suffixIconColor: const Color(0xFF7C7D7E),
       ),
       validator: validator,
     );

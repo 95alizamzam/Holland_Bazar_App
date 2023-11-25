@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tsc_app/core/common_widgets/custom_btn.dart';
-import 'package:tsc_app/core/common_widgets/dialogs.dart';
+import 'package:tsc_app/core/shared_widgets/custom_btn.dart';
+import 'package:tsc_app/core/shared_widgets/dialogs.dart';
 import 'package:tsc_app/core/di/setup.dart';
 import 'package:tsc_app/core/fonts/font.dart';
 import 'package:tsc_app/core/services/navigation_services.dart';

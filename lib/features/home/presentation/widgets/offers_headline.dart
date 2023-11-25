@@ -9,10 +9,7 @@ class OffersHeadLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 14.h,
-        horizontal: 16.w,
-      ),
+      padding: EdgeInsets.symmetric(vertical: 18.h, horizontal: 16.w),
       child: Row(
         children: [
           Text(

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tsc_app/core/services/firebase/cloud_firestore.dart';
 
 import '../../../../core/di/setup.dart';
@@ -48,8 +49,8 @@ class _BadgeBoxState extends State<BadgeBox> {
             elevation: 4,
           ),
           position: badges.BadgePosition.topEnd(
-            end: -4,
-            top: -8,
+            end: -7.w,
+            top: -10.h,
           ),
           child: const Center(
             child: Image(

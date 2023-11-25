@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tsc_app/core/common_widgets/custom_btn.dart';
-import 'package:tsc_app/core/common_widgets/loader.dart';
+import 'package:tsc_app/core/shared_widgets/custom_btn.dart';
+import 'package:tsc_app/core/shared_widgets/loader.dart';
 
 enum DialogState {
   error,

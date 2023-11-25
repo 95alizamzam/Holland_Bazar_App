@@ -6,7 +6,7 @@ import 'package:tsc_app/core/di/setup.dart';
 import 'package:tsc_app/core/presentation/enums/on_boarding_page_enum.dart';
 import 'package:tsc_app/core/services/hive_config.dart';
 import 'package:tsc_app/core/services/navigation_services.dart';
-import 'package:tsc_app/core/common_widgets/custom_btn.dart';
+import 'package:tsc_app/core/shared_widgets/custom_btn.dart';
 
 import '../../../features/auth/presentation/pages/login_page.dart';
 

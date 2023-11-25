@@ -9,10 +9,7 @@ class FrequentlyOrderedHeadLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 14.h,
-        horizontal: 16.w,
-      ),
+      padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.w),
       child: Row(
         children: [
           Column(
@@ -30,11 +27,13 @@ class FrequentlyOrderedHeadLine extends StatelessWidget {
               ),
               SizedBox(height: 4.h),
               Text(
-                "Suggestions Based on your order history ",
+                "Suggestions Based on your order history",
                 style: TextStyle(
-                  fontSize: 10.sp,
+                  fontSize: 9.sp,
                   fontFamily: AppFonts.metropolisRegular,
                   color: const Color(0xFF959FA8),
+                  wordSpacing: -1,
+                  letterSpacing: -0,
                 ),
               ),
             ],

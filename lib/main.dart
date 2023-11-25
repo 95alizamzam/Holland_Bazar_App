@@ -42,17 +42,24 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: ScreenUtilInit(
-        designSize: const Size(375, 812),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        child: MaterialApp(
-          title: 'Tsc Test App',
-          debugShowCheckedModeBanner: false,
-          // navigatorKey: NavigationServices.navKey,
-          themeMode: ThemeMode.light,
-          theme: AppTheme.lightTheme,
-          home: const LogoPage(),
-          builder: EasyLoading.init(),
+        designSize: const Size(375, 812), // should be in dp
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            debugPrint("maxWidth  --> ${constraints.maxWidth}");
+            debugPrint("maxHeight --> ${constraints.maxHeight}");
+
+            final double ratio = constraints.maxWidth / constraints.maxHeight;
+            debugPrint("ratio --> $ratio");
+
+            return MaterialApp(
+              title: 'Tsc Test App',
+              debugShowCheckedModeBanner: false,
+              themeMode: ThemeMode.light,
+              theme: AppTheme.lightTheme,
+              home: const LogoPage(),
+              builder: EasyLoading.init(),
+            );
+          },
         ),
       ),
     );

@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tsc_app/core/fonts/font.dart';
 import 'package:tsc_app/features/cart/data/models/cart_item.dart';
 
-import '../../../../core/common_widgets/custom_btn.dart';
+import '../../../../core/shared_widgets/custom_btn.dart';
 import '../../../../core/di/setup.dart';
 import '../../../../core/services/firebase/cloud_firestore.dart';
 import '../../../../core/services/hive_config.dart';

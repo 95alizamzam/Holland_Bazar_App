@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tsc_app/core/common_widgets/dialogs.dart';
+import 'package:tsc_app/core/shared_widgets/dialogs.dart';
 import 'package:tsc_app/core/di/setup.dart';
 import 'package:tsc_app/core/fonts/font.dart';
 import 'package:tsc_app/core/services/navigation_services.dart';
@@ -177,6 +177,7 @@ class _HomePageState extends State<HomePage> {
                       return SizedBox(
                         height: 195.h,
                         child: ListView.builder(
+                          padding: EdgeInsets.zero,
                           physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           itemCount: offersBloc.offers.length,
@@ -200,6 +201,7 @@ class _HomePageState extends State<HomePage> {
                       return SizedBox(
                         height: 100.h,
                         child: ListView.builder(
+                          padding: EdgeInsets.zero,
                           physics: const BouncingScrollPhysics(),
                           itemCount: categoriesBloc.categories.length,
                           scrollDirection: Axis.horizontal,
@@ -220,7 +222,7 @@ class _HomePageState extends State<HomePage> {
                   builder: (_, state) {
                     if (state is ProductsDoneState) {
                       return SizedBox(
-                        height: 240,
+                        height: 245.h,
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
                           physics: const BouncingScrollPhysics(),

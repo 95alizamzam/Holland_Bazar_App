@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:tsc_app/core/common_widgets/cached_image.dart';
+import 'package:tsc_app/core/shared_widgets/cached_image.dart';
 import 'package:tsc_app/core/di/setup.dart';
 import 'package:tsc_app/core/services/firebase/storage_service.dart';
 
@@ -29,7 +29,7 @@ class _OfferCardState extends State<OfferCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10.w),
+      margin: EdgeInsets.symmetric(horizontal: 7.w),
       height: 195.h,
       width: 195.w,
       decoration: BoxDecoration(

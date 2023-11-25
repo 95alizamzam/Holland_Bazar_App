@@ -43,6 +43,10 @@ class HomeSearchField extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(9.r),
           ),
+          suffixIcon: IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.menu),
+          ),
         ),
       ),
     );

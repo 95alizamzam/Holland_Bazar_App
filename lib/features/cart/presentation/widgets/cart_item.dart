@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tsc_app/core/common_widgets/cached_image.dart';
+import 'package:tsc_app/core/shared_widgets/cached_image.dart';
 import 'package:tsc_app/core/di/setup.dart';
 import 'package:tsc_app/core/fonts/font.dart';
 import 'package:tsc_app/core/services/firebase/cloud_firestore.dart';

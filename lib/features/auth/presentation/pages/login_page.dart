@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:tsc_app/core/common_widgets/loader.dart';
+import 'package:tsc_app/core/shared_widgets/loader.dart';
 
 import 'package:tsc_app/core/di/setup.dart';
 import 'package:tsc_app/core/services/hive_config.dart';
 import 'package:tsc_app/features/auth/presentation/pages/otp_page.dart';
 import 'package:tsc_app/features/auth/presentation/widgets/auth_text_field.dart';
 import 'package:tsc_app/core/services/navigation_services.dart';
-import 'package:tsc_app/core/common_widgets/custom_btn.dart';
-import 'package:tsc_app/core/common_widgets/custom_btn_with_icon.dart';
+import 'package:tsc_app/core/shared_widgets/custom_btn.dart';
+import 'package:tsc_app/core/shared_widgets/custom_btn_with_icon.dart';
 import 'package:tsc_app/features/auth/presentation/blocs/login_bloc/login_bloc.dart';
 import 'package:tsc_app/features/auth/presentation/blocs/login_bloc/login_event.dart';
 import 'package:tsc_app/features/auth/presentation/pages/sign_up_page.dart';
 
-import '../../../../core/common_widgets/dialogs.dart';
+import '../../../../core/shared_widgets/dialogs.dart';
 import '../blocs/login_bloc/login_state.dart';
 
 class LoginPage extends StatefulWidget {
@@ -32,6 +32,8 @@ class _LoginPageState extends State<LoginPage> {
   final router = getIt<NavigationServices>();
   final loginBloc = getIt<LoginBloc>();
   final hiveHelper = getIt<HiveConfig>();
+
+  bool isSecure = true;
 
   @override
   void dispose() {
@@ -100,6 +102,17 @@ class _LoginPageState extends State<LoginPage> {
                         action: TextInputAction.done,
                         keyboardType: TextInputType.visiblePassword,
                         hint: "Password",
+                        isSecure: isSecure,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isSecure = !isSecure;
+                            });
+                          },
+                          icon: Icon(
+                            isSecure ? Icons.visibility : Icons.visibility_off,
+                          ),
+                        ),
                         validator: (password) {
                           if (password == null || password.isEmpty) {
                             return "password is required";
