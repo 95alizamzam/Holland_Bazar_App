@@ -140,7 +140,7 @@ class _ProductCardState extends State<ProductCard> {
                             ),
                       ),
                       const Spacer(),
-                      SizedBox(width: 6.w),
+                      SizedBox(width: 7.w),
                       Text(
                         "${widget.product.rating}",
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(

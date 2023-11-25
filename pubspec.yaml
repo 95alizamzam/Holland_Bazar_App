@@ -37,6 +37,7 @@ dependencies:
   badges: ^3.1.2
   shimmer: ^3.0.0
   flutter_easyloading: ^3.0.5
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -69,9 +70,12 @@ flutter:
     - family: metropolis_semi_bold
       fonts:
         - asset: assets/fonts/metropolis.semi-bold.otf
-    - family: metropolis.regular
+    - family: metropolis_regular
       fonts:
         - asset: assets/fonts/metropolis.regular.otf
+    - family: Roboto_Regular
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
 
   #
   # For details regarding fonts from package dependencies,
