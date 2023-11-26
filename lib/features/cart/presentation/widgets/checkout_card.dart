@@ -72,12 +72,12 @@ class _CheckoutCardState extends State<CheckoutCard> {
                     borderRadius: BorderRadius.circular(29),
                   ),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(width: 18.w),
                       SvgPicture.asset("assets/cart_page/discount_icon.svg"),
                       SizedBox(width: 8.w),
                       SizedBox(
-                        height: 14.h,
                         child: Text(
                           "Enter promo code",
                           style: TextStyle(
@@ -91,7 +91,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       CustomBtn(
                         onPress: () {},
                         style: ButtonStyle(
-                          fixedSize: MaterialStatePropertyAll(Size(64.w, 41.h)),
+                          fixedSize: MaterialStatePropertyAll(Size(70.w, 41.h)),
                           shape: MaterialStatePropertyAll(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(21),

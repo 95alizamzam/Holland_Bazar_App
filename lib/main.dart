@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,13 @@ void main() async {
   Bloc.observer = MyBlocObserver();
 
   runApp(const MyApp());
+
+  // runApp(
+  //   DevicePreview(
+  //     enabled: kDebugMode,
+  //     builder: (context) => const MyApp(),
+  //   ),
+  // );
 }
 
 class MyApp extends StatelessWidget {
@@ -45,19 +53,18 @@ class MyApp extends StatelessWidget {
         designSize: const Size(375, 812), // should be in dp
         child: LayoutBuilder(
           builder: (context, constraints) {
-            debugPrint("maxWidth  --> ${constraints.maxWidth}");
-            debugPrint("maxHeight --> ${constraints.maxHeight}");
-
-            final double ratio = constraints.maxWidth / constraints.maxHeight;
-            debugPrint("ratio --> $ratio");
-
             return MaterialApp(
               title: 'Tsc Test App',
               debugShowCheckedModeBanner: false,
               themeMode: ThemeMode.light,
               theme: AppTheme.lightTheme,
               home: const LogoPage(),
-              builder: EasyLoading.init(),
+              locale: DevicePreview.locale(context),
+              builder: (context, child) {
+                child = EasyLoading.init()(context, child);
+                // child = DevicePreview.appBuilder(context, child);
+                return child;
+              },
             );
           },
         ),

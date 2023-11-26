@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tsc_app/core/exceptions/app_exception.dart';
 
@@ -10,7 +11,7 @@ import 'login_state.dart';
 @injectable
 class LoginBloc extends Bloc<LoginEvents, LoginStates> {
   final LoginUseCase loginUseCase;
-
+  StreamSubscription<String?>? streamSubscription;
   LoginBloc({
     required this.loginUseCase,
   }) : super(LoginInitail()) {
@@ -20,16 +21,30 @@ class LoginBloc extends Bloc<LoginEvents, LoginStates> {
       response.fold(
         (l) => emit(LoginFailed(errorMsg: l.message)),
         (r) {
-          r.stream.listen((event) {
-            if (event == null) {
-              add(UpdateUiSuccess());
-            } else {
-              debugPrint("-----------------------------\n");
-              debugPrint("The Error Message ---> $event");
-              debugPrint("-----------------------------\n");
-              add(UpdateUiFailed(exception: CustomException(message: event)));
-            }
-          });
+          try {
+            streamSubscription = r.stream.listen(
+              (event) {
+                if (event == null) {
+                  add(UpdateUiSuccess());
+                } else {
+                  add(UpdateUiFailed(
+                      exception: CustomException(message: event)));
+                }
+              },
+              cancelOnError: false,
+              onError: (e, s) {
+                emit(LoginFailed(
+                    errorMsg: "Something went wrong ,Please try again"));
+              },
+              onDone: () async {
+                await r.close();
+              },
+            );
+          } catch (e) {
+            emit(
+              LoginFailed(errorMsg: "Something went wrong ,Please try again"),
+            );
+          }
         },
       );
     });

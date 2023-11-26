@@ -37,7 +37,7 @@ class CloudFireStoreService {
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getUserCartItems({
     required String userId,
   }) async {
-    final QuerySnapshot<Map<String, dynamic>> query =
+    final query =
         await fs.collection("carts").doc(userId).collection("items").get();
     return query.docs;
   }

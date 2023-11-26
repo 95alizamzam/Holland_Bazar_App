@@ -12,9 +12,12 @@ import 'package:tsc_app/features/cart/presentation/cart_bloc/events.dart';
 import 'package:tsc_app/features/cart/presentation/cart_bloc/states.dart';
 import 'package:tsc_app/features/cart/presentation/pages/cart_page.dart';
 import 'package:tsc_app/features/home/presentation/blocs/categories_bloc/bloc.dart';
+import 'package:tsc_app/features/home/presentation/blocs/categories_bloc/events.dart';
 import 'package:tsc_app/features/home/presentation/blocs/categories_bloc/states.dart';
 import 'package:tsc_app/features/home/presentation/blocs/offers_bloc/bloc.dart';
+import 'package:tsc_app/features/home/presentation/blocs/offers_bloc/events.dart';
 import 'package:tsc_app/features/home/presentation/blocs/offers_bloc/states.dart';
+import 'package:tsc_app/features/home/presentation/blocs/products_bloc/events.dart';
 import 'package:tsc_app/features/home/presentation/blocs/products_bloc/states.dart';
 import 'package:tsc_app/features/home/presentation/widgets/badge_box.dart';
 import 'package:tsc_app/features/home/presentation/widgets/category_card.dart';
@@ -37,9 +40,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final router = getIt<NavigationServices>();
 
-  late ProductsBloc productBloc;
-  late OffersBloc offersBloc;
-  late CategoriesBloc categoriesBloc;
+  final ProductsBloc productBloc = getIt<ProductsBloc>();
+  final OffersBloc offersBloc = getIt<OffersBloc>();
+  final CategoriesBloc categoriesBloc = getIt<CategoriesBloc>();
 
   @override
   void initState() {
@@ -57,9 +60,9 @@ class _HomePageState extends State<HomePage> {
       DeviceOrientation.portraitUp,
     ]);
 
-    productBloc = context.read<ProductsBloc>();
-    offersBloc = context.read<OffersBloc>();
-    categoriesBloc = context.read<CategoriesBloc>();
+    productBloc.add(GetHomeProductsEvent());
+    offersBloc.add(GetHomeOffersEvent());
+    categoriesBloc.add(GetHomeCategoriesEvent());
   }
 
   @override
@@ -172,6 +175,7 @@ class _HomePageState extends State<HomePage> {
                 const OffersHeadLine(),
                 // OFFERS
                 BlocBuilder<OffersBloc, OffersStates>(
+                  bloc: offersBloc,
                   builder: (context, state) {
                     if (state is OffersDoneState) {
                       return SizedBox(
@@ -196,6 +200,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 40.h),
                 // CATEGORIES
                 BlocBuilder<CategoriesBloc, CategoriessStates>(
+                  bloc: categoriesBloc,
                   builder: (c, state) {
                     if (state is CategoriesDoneState) {
                       return SizedBox(
@@ -219,6 +224,7 @@ class _HomePageState extends State<HomePage> {
                 const FrequentlyOrderedHeadLine(),
                 // PRODUCTS
                 BlocBuilder<ProductsBloc, ProductsStates>(
+                  bloc: productBloc,
                   builder: (_, state) {
                     if (state is ProductsDoneState) {
                       return SizedBox(
