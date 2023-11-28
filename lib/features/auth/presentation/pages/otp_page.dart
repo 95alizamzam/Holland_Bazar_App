@@ -35,11 +35,7 @@ class OtpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        router.goTo(
-          context,
-          replace: true,
-          page: const LoginPage(),
-        );
+        router.goTo(context, replace: true, page: const LoginPage());
         return true;
       },
       child: Scaffold(

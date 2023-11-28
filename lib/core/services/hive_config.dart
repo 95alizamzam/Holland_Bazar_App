@@ -28,5 +28,7 @@ class HiveConfig {
 class HiveKeys {
   static String isFirstRun = "isFirstRun";
   static String authVerificationId = "verificationId";
+  static String resendToken = "resendToken";
+
   static String userData = "userData";
 }

@@ -20,6 +20,8 @@ class FirebaseAuthServices {
     required Function(String) onCodeAutoRetrievalTimeout,
   }) async {
     await _auth.verifyPhoneNumber(
+      // used to resend sms again
+      forceResendingToken: hiveHelper.getData(key: HiveKeys.resendToken),
       phoneNumber: formatNumber(phoneNumber),
       verificationCompleted: (PhoneAuthCredential credential) async {
         // work only for android decices - devices which support automatic SMS code resolution.
@@ -27,6 +29,9 @@ class FirebaseAuthServices {
       codeSent: (String verificationId, int? resendToken) async {
         await hiveHelper.storeData(
             key: HiveKeys.authVerificationId, value: verificationId);
+
+        await hiveHelper.storeData(
+            key: HiveKeys.resendToken, value: resendToken);
         onCodeSent();
       },
       verificationFailed: (FirebaseAuthException e) async {

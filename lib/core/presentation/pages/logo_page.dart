@@ -35,7 +35,7 @@ class _LogoPageState extends State<LogoPage> {
         if (user == null) {
           route.goTo(context, page: const LoginPage(), clean: true);
         } else {
-          route.goTo(context, clean: true, page: const StartUpPage());
+          route.goTo(context, page: const StartUpPage(), clean: true);
         }
       });
     }
